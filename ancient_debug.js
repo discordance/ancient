@@ -7,6 +7,6 @@ var Step = require("./data_structure/step");
 var Phrase = require("./data_structure/phrase");
 var Util = require("./global/utilitor");
 var Gen = require("./global/generator");
- 
-var test = Gen.phGenerateRecurringSimple(16,2);
-console.log(test.dumpVel());
+var Ext =  require("./external/translator");
+var test = Gen.phGenerateRecurringSimple(128,2);
+console.log(Ext.ph2dpp(test, 42, 120));

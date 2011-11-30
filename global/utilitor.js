@@ -18,6 +18,20 @@ exports.leadZero = function (n, totalDigits) {
 };
 
 /**
+ * Famous function that maps a value from one scale to another, extracted from Processing.org
+ */ 
+exports.map = function (value, min1, max1, min2, max2)
+{
+  var norm = function(val, min, max){
+    return (val - min) / (max - min);
+  }
+  var interp = function(val, min, max){
+    return min + (max - min) * val;
+  }
+  return interp( norm(value, min1, max1), min2, max2);
+}
+
+/**
  * Takes two nibbles and concat to one byte
  */
 exports.nib2byte = function (a, b) {
