@@ -177,6 +177,18 @@ Phrase.prototype = {
     this.fix();
     // allow chaining
     return this;
+  },
+  // mute steps below a threshold
+  filter: function(v) {
+    var l = this.steps.length;
+    for (var i = 0; i < l; i++) {
+      var step = this.steps[i];
+      if(step.vel < v){
+        step.vel=0;
+      }
+    }
+    // allow chaining
+    return this;
   }
 // phrase to nibbles
 };

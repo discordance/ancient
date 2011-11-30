@@ -61,5 +61,6 @@ exports.phGenerateRecurring = function (size, modulo) {
     }
     res.push(step);
   }
-  return new Phrase(size, res);
+  // returns and filter result below 5
+  return new Phrase(size, res).filter(5);
 };
