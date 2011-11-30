@@ -36,7 +36,7 @@ exports.phGenerateUniform = function (size, density) {
  * Generate a recurring Phrase using <size> steps, using the <modulo> parameter.
  * this modulo parameter defines the beat division where a more important probability should to be applied.
  */
-exports.phGenerateRecurring = function (size, modulo) {
+exports.phGenerateRecurringSimple = function (size, modulo) {
   var i = 0,
   res = [],
   prob = 0,
@@ -49,11 +49,11 @@ exports.phGenerateRecurring = function (size, modulo) {
     if(dist){
       prob = 1/(dist+1);
     } else {
-      prob=0.95;
+      prob=0.98; // almost impossible to miss here, but life is a bitch sometimes
     }
     score=Math.random(); // pure random here
     if(score<prob){
-      vel = Math.floor(Util.normalRand(13*prob, 2)); // using normal function, in relation to the prob
+      vel = Math.floor(Util.normalRand(14*prob, 1)); // using normal function, in relation to the prob
       step = new Step(vel, 1, [], false, 0);
     }else{
       vel = 0;

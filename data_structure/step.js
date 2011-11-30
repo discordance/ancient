@@ -27,7 +27,7 @@ function Step(vel, dur, ctrl, lock, drift) {
 
   // set ctrl
   this.ctrl = ctrl;
-  if (ctrl === undefined || typeof (ctrl) != "object") {
+  if (ctrl === undefined || typeof (ctrl) != "object" || !ctrl.length) {
     this.ctrl = [0, 0, 0, 0];
   }
 
