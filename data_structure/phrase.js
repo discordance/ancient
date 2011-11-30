@@ -16,7 +16,7 @@
  */
 // node.js
 var Step = require("../data_structure/step");
-var Util = require("../utilit_or");
+var Util = require("../global/utilitor");
 
 // construct
 function Phrase(size, steps) {
