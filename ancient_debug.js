@@ -9,4 +9,4 @@ var Util = require("./global/utilitor");
 var Gen = require("./global/generator");
 var Ext =  require("./external/translator");
 var test = Gen.phGenerateRecurringSimple(128,2);
-console.log(Ext.ph2dpp(test, 42, 120));
+console.log(Ext.ph2dpp(test, 42, 120)); 
