@@ -18,6 +18,19 @@ exports.leadZero = function (n, totalDigits) {
 };
 
 /**
+ * Performs an array rotation
+ * Not obvious code but fast.
+ * @TODO find a more readable solution?
+ */
+exports.rotateArray = function(a, c) {
+    for(var b = a.length, c = (Math.abs(c) >= b && (c %= b), 0 > c && (c += b), c), d, e;c;c = (Math.ceil(b / c) - 1) * c - b + (b = c)) {
+        for(d = b;d > c;e = a[--d], a[d] = a[d - c], a[d - c] = e) {
+        }
+    }    
+    return a;
+};
+
+/**
  * Famous function that maps a value from one scale to another, extracted from Processing.org
  */ 
 exports.map = function (value, min1, max1, min2, max2)
@@ -29,7 +42,7 @@ exports.map = function (value, min1, max1, min2, max2)
         return min + (max - min) * val;
     }
     return interp( norm(value, min1, max1), min2, max2);
-}
+};
 
 /**
  * Takes two nibbles and concat to one byte
@@ -51,7 +64,7 @@ exports.byte2nib = function (by) {
 /**
  * Generate a fast normal distributed random number based on mean and standard deviation passed in parametters.
  */ 
-exports.normalRand = function(mean, stdev) {
-    var rnd = (Math.random()*2-1)+(Math.random()*2-1)+(Math.random()*2-1);
+exports.normalRand = function(mean, stdev) { 
+    var random=Math.random, rnd = (random()*2-1)+(random()*2-1)+(random()*2-1);
     return rnd*stdev+mean;
 };

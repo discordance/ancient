@@ -6,11 +6,49 @@
 var Phrase = require("../data_structure/phrase");
 var Util = require("../global/utilitor");
 
+
 /**
- * Used to export a phrase in Drums plus plus format http://www.mikekohn.net/music/drumsplusplus.php
+ * Exports an array of phrases in Drums plus plus format http://www.mikekohn.net/music/drumsplusplus.php
  * Nice MIDI util used to generate SMF Files.
  */
-exports.ph2dpp = function (phrase, pitch, bpm) {
+exports.arr2dpp = function (phrases, pitchs, bpm) {
+    var out=this.dppHead(bpm);
+    // longest phrase
+    
+};
+
+/**
+ * Transform a phrase into an array of Dpp patterns
+ */
+exports.ph2dppPatts = function(phrase, pitch){
+    var i=0, nb=0, nn=0, map=Util.map, patt='', out=[];
+    for (i; i < phrase.steps.length; i++) {     
+        if(i%16 == 0){ // dpp do not allow more than 4 beats per pattern, so we must make several patterns %16
+            if(i!==0){
+                patt += ';';
+                out.push(patt);
+                patt='';
+            }
+            patt+=pitch+': ';
+            nb++;
+        }
+        if(phrase.steps[i].vel){
+            nn = (i%16)+1;
+            patt += map(nn, 1, 17, 1, 5).toFixed(2)+':'+map(phrase.steps[i].vel,0,15,0,255) + ' ';
+        }
+        if(i == phrase.steps.length-1){
+            patt += ';';
+            out.push(patt);
+        }
+    }
+    return out;
+};
+
+/**
+ * Exports a phrase in Drums plus plus format http://www.mikekohn.net/music/drumsplusplus.php
+ * Nice MIDI util used to generate SMF Files.
+ */
+exports.ph2dppSong = function (phrase, pitch, bpm) {
     var i=0, nb=0, nn=0, pname='', names=[], endl='', map=Util.map, out=this.dppHead(bpm);
     for (i; i < phrase.steps.length; i++) {
         if(i%16 == 0){ // dpp do not allow more than 4 beats per pattern, so we must make several patterns %16

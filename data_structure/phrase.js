@@ -50,26 +50,26 @@ Phrase.prototype = {
         }
         if (l > this.size) { // need to delete extra steps.
             this.steps.length = this.size;
-        } 
+        }
     },
     // repare durations.
     // we don't want to have a step duration that exceeds the start time of the next step.
     fix: function () {
-        var l = this.steps.length, step;
-        for (var i = 0; i < l; i++) {
+        var l = this.steps.length, i = 0, j = 1, step, ahead = 0;
+        for (i; i < l; i++) {
             step = this.steps[i];
             if (step.dur <= 1) {
                 step.dur = 1;
-                continue;
+            //continue; ?useful ?
             } // no problem
             else {
                 if (step.dur > this.size) {
                     step.dur = this.size;
                 }
                 // count how much silent step we need to have ahead
-                var ahead = step.dur - 1; // steps we need ahead
+                ahead = step.dur - 1; // steps we need ahead
                 //look ahead and correct
-                for (var j = 1; j < ahead + 1; j++) {
+                for (j; j < ahead + 1; j++) {
                     if (this.steps[i + j].vel) {
                         step.dur = (i + j) - i;
                         break;
@@ -143,10 +143,10 @@ Phrase.prototype = {
     // dumper function show a console formated dump of the phrase, focusing on a specific representation of the steps.
     // focus is defined by a function that we pass to the dumper, this function must accept a step obj and returns a string.
     dumper: function (what) {
-        var l = this.steps.length;
-        var str = '';
-        for (var i = 0; i < l; i++) {
-            var step = this.steps[i];
+        var str = '', l = this.steps.length, step, i = 0;
+        
+        for (i; i < l; i++) {
+            step = this.steps[i];
             str += '[';
             // use the passed what function to represent a specific view of the step
             str += what(step);
@@ -190,11 +190,17 @@ Phrase.prototype = {
     },
     // shift left by the number of steps
     lshift: function(shft){
-    
+        shft = shft < 0 ? -shft : shft;
+        Util.rotateArray(this.steps, -shft);
+        // allow chaining
+        return this;
     },
     // shift right by the number of steps
     rshift: function(shft){
-    
+        shft = shft < 0 ? -shft : shft;
+        Util.rotateArray(this.steps, shft);
+        // allow chaining
+        return this;
     }
 };
 
