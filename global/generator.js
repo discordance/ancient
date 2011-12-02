@@ -8,7 +8,7 @@ var Phrase = require("../data_structure/phrase");
 var Util = require("./utilitor");
 
 /**
- * Generate a random Phrase using <size> steps, using the <density> parameter.
+ * Generate a random Phrase of <size> steps, using the <density> parameter.
  * <density> is used as a 'chance to happen' parametter.
  * Probability distribution is uniform.
  * No special algorithm used here except Math.random();
@@ -33,21 +33,22 @@ exports.phGenerateUniform = function (size, density) {
 };
 
 /**
- * Generate a recurring Phrase using <size> steps, using the <modulo> parameter.
+ * Generate a recurring Phrase of <size> steps, using the <modulo> parameter. The modulo <cycle> is 4 steps by default.
  * this modulo parameter defines the beat division where a more important probability should to be applied.
  */
-exports.phGenerateRecurringSimple = function (size, modulo) {
+exports.phGenerateRecurringSimple = function (size, modulo, cycle) {
     var i = 0,
     res = [],
     prob = 0,
     score = 0,
     step, vel, dist = 0,
+    loop = cycle || 4,
     abs = Math.abs;
-    for (i; i < size; i++) {
-        dist = abs(i % 4 - modulo);
     
+    for (i; i < size; i++) {
+        dist = abs(i % loop - modulo); // get the dist from modulo
         if(dist){
-            prob = 1/(dist+1);
+            prob = 1/(dist+2);
         } else {
             prob=0.98; // almost impossible to miss here, but life is a bitch sometimes
         }

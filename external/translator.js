@@ -12,9 +12,34 @@ var Util = require("../global/utilitor");
  * Nice MIDI util used to generate SMF Files.
  */
 exports.arr2dpp = function (phrases, pitchs, bpm) {
-    var out=this.dppHead(bpm);
-    // longest phrase
-    
+    var out=this.dppHead(bpm), i = 0, x = 0, y = 0, max = 0, all=[], names=[], pname='', defo=35;
+    // get dpp arrays
+    for (i; i < phrases.length; i++) {
+        all.push(this.ph2dppPatts(phrases[i], pitchs[i] || defo));
+        if(!max){
+            max = all[i].length;
+        }else{
+            if(all[i].length>max){
+                max=all[i].length;
+            }
+        }
+    }
+    // create patterns
+    for (x; x < max; x++) {
+        // patt
+        pname = 'p'+x;
+        names.push(pname);
+        out += 'pattern '+pname+'\n{\n\t';
+        for(y; y < all.length; y++){
+            if(all[y][x]){
+                out+=all[y][x] +'\n\t';
+            }    
+        }
+        out += '\n}\n\n';
+        y=0;
+    }
+    out += this.dppButt(names);
+    return out;
 };
 
 /**
