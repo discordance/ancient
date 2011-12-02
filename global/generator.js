@@ -33,20 +33,22 @@ exports.phGenerateUniform = function (size, density) {
 };
 
 /**
- * Generate a recurring Phrase of <size> steps, using the <modulo> parameter. The modulo <cycle> is 4 steps by default.
- * this modulo parameter defines the beat division where a more important probability should to be applied.
+ * Generate a recurring Phrase of <size> steps, using the <bdiv> parameter. The bdiv <cycle> is 4 steps by default.
+ * <bdiv> correspond to a beat division and cycle to the loop. Therefor, the bdiv should not be equal or greater than the <cycle>.
+ * In fact, this <bdiv> parameter defines the beat division where a more important probability should to be applied.
  */
-exports.phGenerateRecurringSimple = function (size, modulo, cycle) {
+exports.phGenerateRecurringSimple = function (size, bdiv, cycle, offset) {
     var i = 0,
     res = [],
     prob = 0,
     score = 0,
     step, vel, dist = 0,
     loop = cycle || 4,
+    of = offset || 0;
     abs = Math.abs;
     
     for (i; i < size; i++) {
-        dist = abs(i % loop - modulo); // get the dist from modulo
+        dist = abs(((i+of) % loop) - bdiv); // get the dist from modulo
         if(dist){
             prob = 1/(dist+2);
         } else {

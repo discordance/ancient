@@ -94,7 +94,7 @@ Phrase.prototype = {
         };
         return this.dumper(showVel);
     },
-    // dump velocities
+    // dump if step will generate a sound (on based on velocity)
     dumpOn: function () {
         // show an aspect of the passed step: 
         // if velocity is 0, silence. 
@@ -139,6 +139,20 @@ Phrase.prototype = {
             return str;
         };    
         return this.dumper(showDur);
+    },
+    // dump steps duration
+    dumpDrift: function () {
+        var showDrift = function (step) {
+            var str = '';
+            if (!step.drift) {
+                str +='.*';
+            }
+            else{
+                str +=step.drift;   
+            }
+            return str;
+        };    
+        return this.dumper(showDrift);
     },
     // dumper function show a console formated dump of the phrase, focusing on a specific representation of the steps.
     // focus is defined by a function that we pass to the dumper, this function must accept a step obj and returns a string.
@@ -199,6 +213,31 @@ Phrase.prototype = {
     rshift: function(shft){
         shft = shft < 0 ? -shft : shft;
         Util.rotateArray(this.steps, shft);
+        // allow chaining
+        return this;
+    },
+    // swing the phrase by a percent
+    // @TODO confirm that this behaviour is good, because duration in not yet useful
+    swing: function (amnt){
+        var l = this.steps.length, mod=0; 
+        amnt = amnt < 0 ? -amnt : amnt;
+        for (var i = 0; i < l; i++) {
+            var step = this.steps[i];
+            mod=i%2;
+            if(mod){
+                step.drift = amnt;
+            }
+        }
+        // allow chaining
+        return this;
+    },
+    // reset the drift values (de-swing)
+    flatten: function (){
+        var l = this.steps.length;
+        for (var i = 0; i < l; i++) {
+            var step = this.steps[i];
+            step.drift=0;
+        }
         // allow chaining
         return this;
     }

@@ -46,7 +46,7 @@ exports.arr2dpp = function (phrases, pitchs, bpm) {
  * Transform a phrase into an array of Dpp patterns
  */
 exports.ph2dppPatts = function(phrase, pitch){
-    var i=0, nb=0, nn=0, map=Util.map, patt='', out=[];
+    var i=0, nb=0, nn=0, map=Util.map, patt='', out=[], fval=0;
     for (i; i < phrase.steps.length; i++) {     
         if(i%16 == 0){ // dpp do not allow more than 4 beats per pattern, so we must make several patterns %16
             if(i!==0){
@@ -59,7 +59,9 @@ exports.ph2dppPatts = function(phrase, pitch){
         }
         if(phrase.steps[i].vel){
             nn = (i%16)+1;
-            patt += map(nn, 1, 17, 1, 5).toFixed(2)+':'+map(phrase.steps[i].vel,0,15,0,255) + ' ';
+            fval = map(nn, 1, 17, 1, 5); 
+            fval += phrase.steps[i].drift*0.25;
+            patt += fval.toFixed(2)+':'+map(phrase.steps[i].vel,0,15,0,255) + ' ';
         }
         if(i == phrase.steps.length-1){
             patt += ';';
@@ -70,9 +72,11 @@ exports.ph2dppPatts = function(phrase, pitch){
 };
 
 /**
+ * @TODO To remove because useless now
  * Exports a phrase in Drums plus plus format http://www.mikekohn.net/music/drumsplusplus.php
  * Nice MIDI util used to generate SMF Files.
  */
+/*
 exports.ph2dppSong = function (phrase, pitch, bpm) {
     var i=0, nb=0, nn=0, pname='', names=[], endl='', map=Util.map, out=this.dppHead(bpm);
     for (i; i < phrase.steps.length; i++) {
@@ -100,6 +104,7 @@ exports.ph2dppSong = function (phrase, pitch, bpm) {
     out += this.dppButt(names);
     return out;
 };
+*/
 
 /**
  * Dumps Header of DPP file
