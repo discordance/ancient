@@ -11,6 +11,14 @@ var Ext =  require("./external/translator");
 var Fs = require('fs');
 
 var a = Gen.phGenerateRecurringSimple(32, 0, 1);
+var ba = a.getBytesVel()
+
+for (var i = 0; i < ba.length; i++) {
+    console.log(ba[i],ba[i]^Math.random()*12);
+}
+
+
+/*
 var b = Gen.phGenerateRecurringSimple(32, 0);
 var c = Gen.phGenerateRecurringSimple(32, 0);
 console.log(a.dumpVel());
@@ -35,3 +43,4 @@ Fs.writeFile("/Users/nunja/Documents/Lab/mid/ancient/test2.dpp", out2, function(
         console.log("The file was saved!");
     }
 }); 
+*/

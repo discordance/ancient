@@ -240,6 +240,30 @@ Phrase.prototype = {
         }
         // allow chaining
         return this;
+    },
+    // transform steps velocities in byte array
+    getBytesVel: function(){
+        var i, a, b, ba = [], toByte = Util.nib2byte;
+        for (i = 0; i < this.steps.length; i+=2) {
+            a=this.steps[i];
+            b=this.steps[i+1];
+            if(a && b){
+                ba.push(toByte(a.vel, b.vel));
+            }
+        }
+        return ba;
+    },
+    // gets a byte array and sets this phrase steps velocities
+    setBytesVel: function(bys){
+        
+    },
+    // test of delay
+    delay: function(time){
+        
+    },
+    // test of diminution
+    minimize: function(ratio){
+        
     }
 };
 
