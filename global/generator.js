@@ -33,7 +33,7 @@ exports.phGenerateUniform = function (size, density) {
 };
 
 /**
- * Generate a recurring Phrase of <size> steps, using the <bdiv> parameter. The bdiv <cycle> is 4 steps by default.
+ * Generate a recurring Phrase of <size> steps, using the <bdiv> parameter. The <cycle> is 4 steps by default.
  * <bdiv> correspond to a beat division and cycle to the loop. Therefor, the bdiv should not be equal or greater than the <cycle>.
  * In fact, this <bdiv> parameter defines the beat division where a more important probability should to be applied.
  */

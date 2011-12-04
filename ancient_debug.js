@@ -10,13 +10,16 @@ var Gen = require("./global/generator");
 var Ext =  require("./external/translator");
 var Fs = require('fs');
 
-var a = Gen.phGenerateRecurringSimple(32, 0, 1);
-var ba = a.getBytesVel()
+var a = Gen.phGenerateRecurringSimple(16, 2, 4);
+//var ba = a.getBytesVel()
 
+console.log(a.dumpVel());
+
+/*
 for (var i = 0; i < ba.length; i++) {
     console.log(ba[i],ba[i]^Math.random()*12);
 }
-
+*/
 
 /*
 var b = Gen.phGenerateRecurringSimple(32, 0);
