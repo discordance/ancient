@@ -243,8 +243,8 @@ Phrase.prototype = {
     },
     // transform steps velocities in byte array
     getBytesVel: function(){
-        var i, a, b, ba = [], toByte = Util.nib2byte;
-        for (i = 0; i < this.steps.length; i+=2) {
+        var i, a, b, ba = [], toByte = Util.nib2byte, l = this.steps.length;
+        for (i = 0; i < l; i+=2) {
             a=this.steps[i];
             b=this.steps[i+1];
             if(a && b){
@@ -253,16 +253,29 @@ Phrase.prototype = {
         }
         return ba;
     },
-    // gets a byte array and sets this phrase steps velocities
+    // gets a byte array and sets this phrase steps velocities from it
     setBytesVel: function(bys){
-        
+        var i, toNibs = Util.byte2nib, l = bys.length, nibz=[], s1, s2;
+        for (i = 0; i < l; i++) {
+            nibz=toNibs(bys[i]);
+            s1 = this.steps[i*2];
+            s2 = this.steps[(i*2)+1];
+            if(!s1.lock){ // check locks
+                s1.vel = nibz[0];
+            }
+            if(!s2.lock){
+                s2.vel = nibz[1];
+            }
+        }
+        // allow chaining
+        return this;
     },
     // test of delay
     delay: function(time){
         
     },
-    // test of diminution
-    minimize: function(ratio){
+    // diminution using the AND algorithm. <iter> indicates the number of iteration applied to the algorithm.
+    minimizeAnd: function(iter){
         
     }
 };
