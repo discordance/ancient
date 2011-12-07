@@ -241,6 +241,22 @@ Phrase.prototype = {
         // allow chaining
         return this;
     },
+    // transform step velocities in computable string
+    getStrVel: function(){
+        var i, l = this.steps.length, str='';
+        for (i = 0; i < l; i++) {
+            str+=(this.steps[i].vel).toString(16);
+        }
+        return str;
+    },
+    setStrVel: function(str){
+      var i, l = str.length;
+      for(i = 0; i < l; i++){
+          this.steps[i].vel = parseInt(str[i], 16);
+      }
+      // allow chaining
+      return this;
+    },
     // transform steps velocities in byte array
     getBytesVel: function(){
         var i, a, b, ba = [], toByte = Util.nib2byte, l = this.steps.length;
@@ -276,7 +292,25 @@ Phrase.prototype = {
     },
     // diminution using the AND algorithm. <iter> indicates the number of iteration applied to the algorithm.
     minimizeAnd: function(iter){
-        
+        var ba = [],i = 0, j = 0;
+        for (i; i < iter; i++) {
+            ba = this.getBytesVel();
+            for (j = 0; j < ba.length; j++) {
+                ba[i] = ba[i]&Math.random()*255;
+            }
+            this.setBytesVel(ba);
+            this.filter(5);
+        }
+        return this;
+    },
+    // evaluate phrase density
+    getDensity: function(){
+        var i = 0, l = this.steps.length, map = Util.map, curr = 0, tt = 0;
+        for(i; i < l; i++){
+            curr = map(this.steps[i].vel, 0, 15, 0, 1);
+            tt += curr;
+        }
+        return tt/l;
     }
 };
 

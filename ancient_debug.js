@@ -10,9 +10,16 @@ var Gen = require("./global/generator");
 var Ext =  require("./external/translator");
 var Fs = require('fs');
 
-var a = Gen.phGenerateRecurringSimple(128, 0, 1);
-var b = Gen.phGenerateRecurringSimple(128, 0, 4);
+var a = Gen.phGenerateRecurringSimple(16, 0, 1);
+var b = Gen.phGenerateRecurringSimple(16, 0, 4);
+var c = new Phrase(16,[]);
+c.setStrVel(b.getStrVel());
+console.log(b.dumpVel());
+console.log(c.dumpVel());
 
+
+
+/*
 a.swing(0.33);
 b.swing(0.33);
 var out, ba;
@@ -32,3 +39,4 @@ for (j = 0; j < 3; j++) {
         }
     }); 
 }
+*/
