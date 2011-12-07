@@ -68,3 +68,11 @@ exports.normalRand = function(mean, stdev) {
     var random=Math.random, rnd = (random()*2-1)+(random()*2-1)+(random()*2-1);
     return rnd*stdev+mean;
 };
+
+/**
+ * Algorithm to compute string similaity score.
+ * @TODO
+ */
+exports.strScore = function(s1, s2) {
+  
+}
