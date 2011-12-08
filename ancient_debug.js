@@ -11,35 +11,17 @@ var Ext =  require("./external/translator");
 var Fs = require('fs');
 
 
-
-/*
-var a = Gen.phGenerateRecurringSimple(16, 0, 1);
-var b = Gen.phGenerateRecurringSimple(16, 0, 4);
-var c = new Phrase(16,[]);
-c.setStrVel(b.getStrVel());
-console.log(b.dumpVel());
-console.log(c.dumpVel());
-*/
+var tem = Gen.phGenerateRecurringSimple(16, 0, 4);
 
 
-/*
-a.swing(0.33);
-b.swing(0.33);
-var out, ba;
-for (j = 0; j < 3; j++) {
-    ba = a.getBytesVel();
-    for (var i = 0; i < ba.length; i++) {
-        ba[i] = ba[i]&Math.random()*255;
-    }
-    a.setBytesVel(ba);
-    a.filter(5);
-    out = Ext.arr2dpp([a,b],[42,36],110);
-    Fs.writeFile("/Users/nunja/Documents/Lab/mid/ancient/test"+j+".dpp", out, function(err) {
-        if(err) {
-            console.log(err);
-        } else {
-            console.log("The file was saved!");
-        }
-    }); 
-}
-*/
+var rnd = new Gen.phGenerateUniform(16, tem.getDensity());
+
+console.log(Util.levenshtein(tem.getStrVel(), rnd.getStrVel()));
+console.log(Util.jaccard(tem.getStrVel(), rnd.getStrVel()));
+console.log(Util.dice(tem.getStrVel(), rnd.getStrVel()));
+console.log(Util.minkowski(tem.getStrVel(), rnd.getStrVel()));
+console.log(Util.lee(tem.getStrVel(), rnd.getStrVel()));
+console.log(tem.getStrVel(), rnd.getStrVel());
+
+
+
