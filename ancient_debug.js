@@ -10,18 +10,15 @@ var Gen = require("./global/generator");
 var Ext =  require("./external/translator");
 var Fs = require('fs');
 
+var tem = Gen.phGenerateRecurringSimple(128, 0, 1);
+var score = 1;
+console.log("beat to match is: "+tem.getStrVel());
 
-var tem = Gen.phGenerateRecurringSimple(16, 0, 4);
+var res = Gen.phGAMultipleSimilarVel(tem,150);
 
 
-var rnd = new Gen.phGenerateUniform(16, tem.getDensity());
-
-console.log(Util.levenshtein(tem.getStrVel(), rnd.getStrVel()));
-console.log(Util.jaccard(tem.getStrVel(), rnd.getStrVel()));
-console.log(Util.dice(tem.getStrVel(), rnd.getStrVel()));
-console.log(Util.minkowski(tem.getStrVel(), rnd.getStrVel()));
-console.log(Util.lee(tem.getStrVel(), rnd.getStrVel()));
-console.log(tem.getStrVel(), rnd.getStrVel());
-
+for (var i = 0; i < res.length; i++) {
+    console.log(res[i].getStrVel());
+}
 
 
