@@ -70,36 +70,10 @@ exports.normalRand = function (mean, stdev) {
     return rnd * stdev + mean;
 };
 
-/**
- * Jaccard distance.
- * Algorithm to compute string similarity score.
- */
-exports.jaccard = function (s1, s2) {
-    var n = s1.length,
-    m = s2.length,
-    same = 0,
-    diff = 0,
-    ct = 0; 
-    /* strings must be of equal size and non-zero length */
-    if (n == 0 || n !== m) {
-        return (-1.0);
-    }
-    if (s1 == s2) {
-        return 0;
-    }
-    while (ct !== n) {
-        if (s1[ct] == s2[ct]) {
-            same++;
-        } else {
-            diff++;
-        }
-        ct++;
-    }
-    return (1 - (same / (diff + same)));
-}
+
 
 /**
- * Jaccard distance.
+ * Weighted Jaccard distance.
  * Algorithm to compute string similarity score.
  */
 exports.wjaccard = function (s1, s2) {

@@ -16,9 +16,6 @@ console.log("beat to match is: "+tem.getStrVel());
 
 var res = Gen.phGAMultipleSimilarVel(tem,150);
 
-
 for (var i = 0; i < res.length; i++) {
-    console.log(res[i].getStrVel());
+  console.log(res[i].getStrVel());
 }
-
-
