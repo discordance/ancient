@@ -10,12 +10,5 @@ var Gen = require("./global/generator");
 var Ext =  require("./external/translator");
 var Fs = require('fs');
 
-var tem = Gen.phGenerateRecurringSimple(128, 0, 1);
-var score = 1;
-console.log("beat to match is: "+tem.getStrVel());
-
-var res = Gen.phGAMultipleSimilarVel(tem,150);
-
-for (var i = 0; i < res.length; i++) {
-  console.log(res[i].getStrVel());
-}
+var tem = new Phrase(16, []);
+tem.setStrVel("");

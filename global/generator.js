@@ -141,13 +141,13 @@ exports.strGenerateUniformVel = function(size){
  * Generates a random beat velocity string of the size of the <target> with a normal distribution.
  * The <noise> arg specifies the standard deviation to apply.
  */
-exports.strGenerateNormalVel = function(targ, noise){
+exports.strGenerateNormalVel = function(targ, deviation){
     var res = '', l = targ.length, i = 0, v = 0, floor = Math.floor, nrand = Util.normalRand;
     if(!l){
         return '';
     }
     for (i; i < l; i++) {
-        v = floor(nrand(parseInt(targ[i],16),noise));
+        v = floor(nrand(parseInt(targ[i],16),deviation));
         if(v < 0){
             v = 0; 
         }

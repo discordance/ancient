@@ -241,7 +241,7 @@ Phrase.prototype = {
         // allow chaining
         return this;
     },
-    // transform step velocities in computable string
+    // transform step velocities in computable hex string
     getStrVel: function(){
         var i, l = this.steps.length, str='';
         for (i = 0; i < l; i++) {
@@ -249,10 +249,13 @@ Phrase.prototype = {
         }
         return str;
     },
+    // translate a hex string into real velocities
     setStrVel: function(str){
       var i, l = str.length;
       for(i = 0; i < l; i++){
-          this.steps[i].vel = parseInt(str[i], 16);
+          if(!this.steps[i].lock){
+              this.steps[i].vel = parseInt(str[i], 16);
+          }
       }
       // allow chaining
       return this;
@@ -291,6 +294,7 @@ Phrase.prototype = {
         
     },
     // diminution using the AND algorithm. <iter> indicates the number of iteration applied to the algorithm.
+    // locked steps are not affected.
     minimizeAnd: function(iter){
         var ba = [],i = 0, j = 0;
         for (i; i < iter; i++) {
