@@ -315,6 +315,18 @@ Phrase.prototype = {
             tt += curr;
         }
         return tt/l;
+    },
+    // adds delay to a phrase, exactly like an audio delay.
+    // use <time> to set the beat division, and <amount> to set the amount of delay.
+    // it uses normal random distribution to add a little more humanized behavior.
+    addDelayVel: function (time, amount){
+        var i = 0, l = this.steps.length;
+        amount = (amount > 15) ? 15 : amount;
+        amount = (amount < 1) ? 1 : amount; 
+        for(i; i < l; i++){
+            
+        }
+        console.log(amount);
     }
 };
 
