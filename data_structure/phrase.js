@@ -289,10 +289,6 @@ Phrase.prototype = {
     // allow chaining
     return this;
   },
-  // test of delay
-  delay: function(time){
-        
-  },
   // diminution using the AND algorithm. <iter> indicates the number of iteration applied to the algorithm.
   // locked steps are not affected.
   minimizeAnd: function(iter){
@@ -361,6 +357,8 @@ Phrase.prototype = {
         }
       }
     }
+    // allow chaining
+    return this;
   }
 };
 
