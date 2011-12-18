@@ -319,6 +319,7 @@ Phrase.prototype = {
   // adds delay to a phrase, exactly like an audio delay.
   // use <time> to set the beat division, and <amount> to set the amount in percent of delay.
   // it uses normal random distribution to add a little more humanized behavior.
+  // @TODO see if this is th best mode.
   addDelayVel: function (time, amount){
     var i = 0, j = 0, l = this.steps.length, targ, curr, rand = Util.normalRand, vel = 0, floor = Math.floor, idx = 0, orig = [], done = [];
     var contains = function(a, e){
