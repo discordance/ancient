@@ -10,7 +10,8 @@ var Gen = require("./global/generator");
 var Ext =  require("./external/translator");
 var Fs = require('fs');
 
-var tem = new Phrase(16, []);
-tem.setStrVel("f000f000f000f000");
-tem.addDelayVel(2, 5);
+var tem = new Phrase(32, []);
+tem.setStrVel("f000f000f000f000f000f000f000f000");
+console.log(tem.dumpVel());
+tem.addDelayVel(5, 1);
 console.log(tem.dumpVel());

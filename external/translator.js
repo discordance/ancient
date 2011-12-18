@@ -10,6 +10,7 @@ var Util = require("../global/utilitor");
 /**
  * Exports an array of phrases in Drums plus plus format http://www.mikekohn.net/music/drumsplusplus.php
  * Nice MIDI util used to generate SMF Files.
+ * @TODO It's not working exactly the way it should for now.
  */
 exports.arr2dpp = function (phrases, pitchs, bpm) {
     var out=this.dppHead(bpm), i = 0, x = 0, y = 0, max = 0, all=[], names=[], pname='', defo=35;

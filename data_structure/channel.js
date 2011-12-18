@@ -5,8 +5,9 @@
  * This contains a multidimensional matrix of Phrases with is used to represent Complexification and Variation.
  * Channels holds thus the "instrument feel". Generative algorithms will be applied following ruleset and a channel
  * defines a ruleset.
- * @TODO think about a structure / architecture here because it's hard
+ * @TODO think about a structure / architecture here because it's tough
  */
 // construct
-function Channel(pitch) {
+function Channel(chan, pitch) {
+  
 }

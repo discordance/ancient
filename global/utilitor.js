@@ -70,8 +70,6 @@ exports.normalRand = function (mean, stdev) {
     return rnd * stdev + mean;
 };
 
-
-
 /**
  * Weighted Jaccard distance.
  * Algorithm to compute string similarity score.
