@@ -7,6 +7,11 @@
  * defines a ruleset.
  * @TODO think about a structure / architecture here because it's tough
  */
+// imports
+var Step = require("../data_structure/step");
+var Phrase = require("../data_structure/phrase");
+var Util = require("../global/utilitor");
+
 // construct
 function Channel(chan, pitch, size, base) {
   // Complexity ratio. 0.5 is the middle and the result is equal to the base Phrase.
@@ -37,4 +42,9 @@ function Channel(chan, pitch, size, base) {
   this.levels = [];
   // Result. Is the resulting phrase that after all transformations have been applied;
   this.result = base;
+}
+
+// methods
+Channel.prototype = {
+  
 }

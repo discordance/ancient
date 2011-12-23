@@ -10,8 +10,11 @@ var Gen = require("./global/generator");
 var Ext =  require("./external/translator");
 var Fs = require('fs');
 
-var tem = new Phrase(32, []);
-tem.setStrVel("f000f000f000f000f000f000f000f000");
-console.log(tem.dumpVel());
-tem.addDelayVel(5, 1);
-console.log(tem.dumpVel());
+var a = new Phrase(16, []);
+a.setStrVel("f000f000f000f000");
+
+var b = new Phrase(16, []);
+b.setStrVel("00000000ff000000");
+
+var c = Gen.phLinearMorph(a, b, 0.2);
+console.log(c.dumpVel());

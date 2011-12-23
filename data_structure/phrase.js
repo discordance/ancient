@@ -241,6 +241,14 @@ Phrase.prototype = {
     // allow chaining
     return this;
   },
+  // transform step velocities in computable bit string
+  getBitVel: function(){
+  // @TODO figure out if it should be implemented
+  },
+  // translate a bit string into real velocities
+  setBitVel: function(){
+  // @TODO figure out if it should be implemented
+  },
   // transform step velocities in computable hex string
   getStrVel: function(){
     var i, l = this.steps.length, str='';
