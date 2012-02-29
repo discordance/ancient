@@ -8,8 +8,10 @@ var Phrase = require("./data_structure/phrase");
 var Util = require("./global/utilitor");
 var Gen = require("./global/generator");
 var Ext =  require("./external/translator");
-var Fs = require('fs');
+var RtSeq = require("./midi/rtseq");
 
+/*
+var Fs = require('fs');
 var a = new Phrase(16, []);
 a.setStrVel("f000f000f000f000");
 
@@ -18,3 +20,7 @@ b.setStrVel("00000000ff000000");
 
 var c = Gen.phLinearMorph(a, b, 0.2);
 console.log(c.dumpVel());
+*/
+
+var seq = new RtSeq();
+seq.start();
