@@ -21,7 +21,7 @@ function Step(vel, dur, ctrl, lock, drift) {
 
     // set dur and check
     this.dur = dur;
-    if (dur === undefined || typeof (dur) != "number" || dur > 64 || dur < 1) {
+    if (dur === undefined || typeof (dur) != "number" || dur > 128 || dur < 1) {
         this.dur = 1;
     }
 
