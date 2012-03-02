@@ -45,7 +45,7 @@ seq.start();
 
 // out process
 process.openStdin().on("keypress", function(chunk, key) {
-  //
+  // start stop
   if(key && key.name === "o"){
   	if(seq.on){
   		seq.stop();
