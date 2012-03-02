@@ -45,15 +45,33 @@ seq.start();
 
 // out process
 process.openStdin().on("keypress", function(chunk, key) {
-  // start stop
-  if(key && key.name === "o"){
+  
+  // poor
+  if(key && key.name === "z"){
+  	
+  }
+  // soso
+  if(key && key.name === "s"){
+  	
+  }
+  // interesting
+  if(key && key.name === "w"){
+  	
+  }
+  // wonder
+  if(key && key.name === "f"){
+  	
+  }
+
+  // start stop seq
+  if(key && key.name === "p"){
   	if(seq.on){
   		seq.stop();
   	}else{
   		seq.start();
   	}
   }
-  // QUIT
+  // quit
   if(key && key.name === "c" && key.ctrl) {
     console.log("Ancient Said Bye");
     seq.stop();
