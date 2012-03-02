@@ -4,6 +4,7 @@ var Util = require("../global/utilitor");
 
 function RtSeq() {
 	
+	this.on = false;
 	this.ivid = null;
 	this.max = 3072; // max ticks at 96 ppqn for 128 squav
 	this.ticks = 0;
@@ -61,6 +62,7 @@ RtSeq.prototype = {
 		this.out.openPort(0);
 		oThis = this; // this reference to callbacks
 		this.ivid = setInterval(function() { oThis.tick() }, this.dly);
+		this.on = true;
 	},
 	tick: function() {
 		var l = this.events[this.ticks].length, ob;
@@ -84,6 +86,7 @@ RtSeq.prototype = {
 		}
 		this.out.closePort();
 		this.ticks = 0;
+		this.on = false;
 	}
 }; 
 

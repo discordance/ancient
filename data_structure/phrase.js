@@ -241,6 +241,23 @@ Phrase.prototype = {
     // allow chaining
     return this;
   },
+  // get all the Phrase's drift values in an array.
+  getDrifts: function(){
+    var res=[], i=0, l=this.steps.length;
+    for (i = l - 1; i >= 0; i--) {
+      res.push(this.steps[i].drift);
+    };
+    return res;
+  },
+  // sets all the Phrase's drift values from an array
+  setDrifts: function(drifts){
+    var i=0, l=this.steps.length, dl = drifts.length;
+    for (i = 0; i < l; i++) {
+      this.steps[i].drift = drifts[i%dl];
+    };
+    // allow chaining
+    return this;
+  },
   // transform step velocities in computable bit string
   getBitVel: function(){
   // @TODO figure out if it should be implemented
