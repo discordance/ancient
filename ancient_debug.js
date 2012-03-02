@@ -17,23 +17,24 @@ var Fs = require('fs');
 var tty = require("tty");
 
 /////
-var swng = 0.0;
+var swng = 0.2;
 var a = new Phrase(16, []);
 a.setStrVel("f000f00f6000f000");
+a.swing(swng);
 
 var b = new Phrase(16, []);
-b.setStrVel("f5f5f5f5f5f5f5f5");
+b.setStrVel("0ff0");
 b.swing(swng);
 
 var c, d, e, f;
-c = Gen.phGenerateUniform(32,0.5).swing(swng);
-d = Gen.phGenerateUniform(32,0.4).swing(swng);
-e = Gen.phGenerateUniform(32,0.3).swing(swng);
-f = Gen.phGenerateUniform(32,0.2).swing(swng);
+c = Gen.phGenerateUniform(36,0.5).swing(swng);
+d = Gen.phGenerateUniform(9,0.4).swing(swng);
+e = Gen.phGenerateUniform(16,0.3).swing(swng);
+f = Gen.phGenerateUniform(12,0.2).swing(swng);
 
 var seq = new RtSeq();
 // seq.start();
-seq.phParse([a,b,c,d,e,f]);
+seq.phParse([a,b]);
 seq.start();
 
 // out process
