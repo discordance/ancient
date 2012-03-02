@@ -31,7 +31,7 @@ var drifts = rnd_short_groov();
 
 var a = new Phrase(16, []);
 a.setStrVel("f000f000f000f000");
-a.c.setDrifts(drifts);
+a.setDrifts(drifts);
 
 var b = new Phrase(16, []);
 b.setStrVel("0000f0000000f000");
@@ -43,9 +43,19 @@ c.setDrifts(drifts);
 
 
 var seq = new RtSeq();
-// seq.start();
 seq.phParse([a,b,c]);
 seq.start();
+
+
+var replaygr = function(){
+	drifts = rnd_short_groov();
+	a.setDrifts(drifts);
+	b.setDrifts(drifts);
+	c.setDrifts(drifts);
+	seq.stop();
+	seq.phParse([a,b,c]);
+	seq.start();
+}
 
 // out process
 process.openStdin().on("keypress", function(chunk, key) {

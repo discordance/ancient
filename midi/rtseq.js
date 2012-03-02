@@ -51,6 +51,7 @@ RtSeq.prototype = {
 
 					if(ct+1 <= this.max-1){
 						this.events[ct].push({s:153,p:this.pmap[i],v:cv})
+						// not cool here (sometimes it bugs out)
 						this.events[(ct+dr)%this.max-1].push({s:137,p:this.pmap[i],v:cv})
 					}
 				}
