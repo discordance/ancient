@@ -16,26 +16,30 @@ var Fs = require('fs');
 var tty = require("tty");
 
 
-// make rndm drift
-var rdm = function(){
+var rnd_short_groov = function(){
+  var dr = [];
+  var rdm = function(){
 	return (Math.random()-0.5)*1.9;
-}
-
-var dr = [];
-for (var i = 8 - 1; i >= 0; i--) {
+  }
+  for (var i = 8 - 1; i >= 0; i--) {
 	dr.push(rdm());
+  }
+  return dr;
 }
 
+var drifts = rnd_short_groov();
 
 var a = new Phrase(16, []);
 a.setStrVel("f000f000f000f000");
+a.c.setDrifts(drifts);
 
 var b = new Phrase(16, []);
 b.setStrVel("0000f0000000f000");
+b.setDrifts(drifts);
 
 var c = new Phrase(16, []);
 c.setStrVel("c6c6c6c6c6c6c6c6");
-c.setDrifts(dr);
+c.setDrifts(drifts);
 
 
 var seq = new RtSeq();
@@ -50,7 +54,7 @@ process.openStdin().on("keypress", function(chunk, key) {
   if(key && key.name === "z"){
   	
   }
-  // soso
+  // so/so/weird
   if(key && key.name === "s"){
   	
   }
