@@ -8,12 +8,8 @@ function RtSeq() {
 	this.ivid = null;
 	this.max = 3072; // max ticks at 96 ppqn for 128 squav
 	this.ticks = 0;
-	this.bpm = 120;
+	this.bpm = 118;
 	this.pmap = [36, 38, 40, 42, 46, 47, 48, 50] // for testing pitchs
-	this.events = new Array(this.max);
-	for (var i = this.max - 1; i >= 0; i--) {
-		this.events[i] = [];
-	};
 	this.dly = (60000/this.bpm)/96;
 	this.rtmidi = null;
 
@@ -28,6 +24,7 @@ RtSeq.prototype = {
 	* Final version would be Tracks ?	
 	*/
 	phParse: function(phrases) {
+		this.reset();
 		var i=0, j=0, l=phrases.length, cp, pl=0, st, subi=0, ct=0, cv=0, dr=0;
 		var odr=0;// mem
 		var map = Util.map, rnd = Math.round;
@@ -50,9 +47,12 @@ RtSeq.prototype = {
 					dr = (st.dur * 24)-1;
 
 					if(ct+1 <= this.max-1){
-						this.events[ct].push({s:153,p:this.pmap[i],v:cv})
-						// not cool here (sometimes it bugs out)
-						this.events[(ct+dr)%this.max-1].push({s:137,p:this.pmap[i],v:cv})
+						if(typeof this.events[ct] !== "undefined"
+							&& typeof this.events[(ct+dr)%this.max-1] !== "undefined"){
+							this.events[ct].push({s:153,p:this.pmap[i],v:cv})
+							// not cool here (sometimes it bugs out)
+							this.events[(ct+dr)%this.max-1].push({s:137,p:this.pmap[i],v:cv})
+						}
 					}
 				}
 			};
@@ -88,6 +88,12 @@ RtSeq.prototype = {
 		this.out.closePort();
 		this.ticks = 0;
 		this.on = false;
+	},
+	reset: function(){
+		this.events = new Array(this.max);
+		for (var i = this.max - 1; i >= 0; i--) {
+			this.events[i] = [];
+		};
 	}
 }; 
 
