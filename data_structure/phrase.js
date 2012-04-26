@@ -337,52 +337,62 @@ Phrase.prototype = {
     }
     return tt/l;
   },
-  // adds delay to a phrase, exactly like an audio delay.
-  // use <time> to set the beat division, and <amount> to set the amount in percent of delay.
-  // it uses normal random distribution to add a little more humanized behavior.
-  // @TODO see if this is the best mode.
+  // trial to improve the addDelayVel function below with a new approach.
+  // use <time> to set the beat division, and <amount> to set the amount in percent of delay and steepness of the curve.
+  // rocks a lot more.
   addDelayVel: function (time, amount){
-    var i = 0, j = 0, l = this.steps.length, targ, curr, rand = Util.normalRand, vel = 0, floor = Math.floor, idx = 0, orig = [], done = [];
-    var contains = function(a, e){
-      var j;
-      for(j=0;j<a.length;j++)if(a[j]==e)return true;
-      return false;
-    }
-    amount = (amount > 1) ? 1 : amount;
-    amount = (amount < 0) ? 0.1 : amount; 
-    // memorize steps that make the beat
-    for(i; i < l; i++){ 
-      curr = this.steps[i];
-      if(curr.vel){
-        orig.push(i);
+    var dlys = [], steps = this.steps, j = 0, k = 0, max = Math.max, maxval = 0;
+    // fill an array with zero values * nb;
+    var getZeroArr = function(nb){
+      var i = 0, arr = [];
+      for(i; i < nb; i++){
+        arr[i] = 0;
       }
+      return arr;
     }
-    // process
-    for(i=0; i < l; i++){
-      curr = this.steps[i];
-      if(curr.vel){
-        idx = 0;
-        vel = rand(curr.vel-1,1);
-        vel = (vel > 15) ? 15 : vel;
-        vel = (vel < 0) ? 0 : vel; 
-        for(j = i; j < i + l; j += time){
-          idx = j%l;
-          vel = floor(vel);
-          targ = this.steps[idx];
-          // check if j is in orig
-          if(!contains(orig, idx)){
-            if(!contains(done, idx)){
-              done.push(idx);
-            }else{
-              vel = (targ.vel < vel) ? vel : targ.vel;
-            }
-            targ.vel = vel;
-            vel *= 0.3;
+    // detect velocities in steps and make a delayed array for each of the steps.
+    var fillDlys = function(){
+      var i = 0, l = steps.length, dlarr, ct = 0, x = 0, org = 0, veld = 0, floor = Math.floor, maxarr = [];
+      var res = [];
+      for(i; i < l; i++){
+        if(steps[i].vel){ 
+          // calculate inverse function delay 
+          // temp array of delays values for this step. should be equal to the total length of the phrase.
+          dlarr = getZeroArr(l); // we init with 0 vars
+          ct = i+time;
+          x = 1;
+          org = steps[i].vel;
+          for(ct; ct < l+i; ct+=time){
+            veld = floor(org*(amount/x));
+            dlarr[ct%16] = veld;
+            x++;
           }
+          //
+          res.push(dlarr);
         }
       }
+      return res;
     }
-    // allow chaining
+    // check code (ugly duh)
+    amount = (amount > 1) ? 1 : amount;
+    amount = (amount < 0) ? 0.1 : amount; 
+    time = (time < 1) ? 1 : time;
+    dlys = fillDlys(); 
+    // got delays per step.
+    // doing the mixin to flatten delays
+    for (k; k <  steps.length; k++){
+      j = 0;
+      maxarr = [];
+      for (j; j < dlys.length; j++){
+        maxarr[j] = dlys[j][k];
+      }
+      maxval = max.apply(null, maxarr);
+      if(steps[k].vel){
+        steps[k].vel = max.apply(null, [steps[k].vel, maxval]);
+      }else{
+        steps[k].vel = maxval;
+      }
+    }
     return this;
   }
 };
