@@ -19,11 +19,36 @@ function RtSeq() {
 
 RtSeq.prototype = {
 	
+
+	/**
+	*
+	* phParse, another test:/\ 
+	*/
+	phParse2: function(phrases) {
+		var i=0, j=0, l=phrases.length, cp=0, pl=0, modj=0, cs, cst=0, cet=0;
+		var map = Util.map, rnd = Math.round;
+		this.reset();
+		for (var i = 0; i < l; i++) {
+			cp = phrases[i]; // curent phrase
+			pl=cp.size;  // phrase length
+
+
+			for (j = 0; j < 128; j++) {
+				modj=j%pl;
+				cs = cp.steps[modj]; // current step
+				if(cs.vel){
+					cst = rnd((j * 24)); // current start tick
+					console.log(ct,j);
+				}
+			}
+		}		
+	},	
 	/**
 	* Test a raw array of phrases
 	* Final version would be Tracks ?	
 	*/
 	phParse: function(phrases) {
+
 		this.reset();
 		var i=0, j=0, l=phrases.length, cp, pl=0, st, subi=0, ct=0, cv=0, dr=0;
 		var odr=0;// mem

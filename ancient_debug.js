@@ -20,10 +20,10 @@ var a = new Phrase(16, []);
 a.setStrVel("f000f000f000f000");
 
 console.log(a.dumpVel());
-a.addDelayVel(6,0.3);
+//a.addDelayVel(6,0.3);
 
 var seq = new RtSeq();
-seq.phParse([a]);
+seq.phParse2([a]);
 seq.start();
 
 
