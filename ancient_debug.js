@@ -15,15 +15,21 @@ var Fs = require('fs');
 // tty exit process nice
 var tty = require("tty");
 
+var swng = 0.3;
+var a = Gen.phGenerateUniform(64,0.3);
+var b = Gen.phGenerateUniform(64,0.2);
+var c = Gen.phGenerateUniform(64,0.2);
+var d = Gen.phGenerateUniform(64,0.4);
+a.swing(swng);
+b.swing(swng);
+c.swing(swng);
+d.swing(swng);
 
-var a = new Phrase(16, []);
-a.setStrVel("f000f000f000f000");
-
-console.log(a.dumpVel());
+//console.log(a.dumpDrift());
 //a.addDelayVel(6,0.3);
 
 var seq = new RtSeq();
-seq.phParse2([a]);
+seq.phParse2([a,b,c,d]);
 seq.start();
 
 

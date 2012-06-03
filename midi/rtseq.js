@@ -18,30 +18,62 @@ function RtSeq() {
 }
 
 RtSeq.prototype = {
-	
-
 	/**
 	*
 	* phParse, another test:/\ 
 	*/
 	phParse2: function(phrases) {
-		var i=0, j=0, l=phrases.length, cp=0, pl=0, modj=0, cs, cst=0, cet=0;
+		var i=0, 
+			j=0,
+			k=0, 
+			l=phrases.length, 
+			maxst=this.max/24, 
+			cp=0, // current phrase
+			pl=0, // current phrase length
+			modj=0, // modulus current step
+			cs, // current step
+			cst=0, // current start tick
+			cet=0, // current end tick
+			dr=0, // drift, in ticks
+			cv=0, // current step vel
+			arr=[], 
+			arrl=0;
+
 		var map = Util.map, rnd = Math.round;
-		this.reset();
-		for (var i = 0; i < l; i++) {
+		this.reset(); // resets the events array
+		for (i = 0; i < l; i++) {
 			cp = phrases[i]; // curent phrase
 			pl=cp.size;  // phrase length
-
-
-			for (j = 0; j < 128; j++) {
+			arr=[];
+			for (j = 0; j < maxst; j++) {
 				modj=j%pl;
 				cs = cp.steps[modj]; // current step
 				if(cs.vel){
-					cst = rnd((j * 24)); // current start tick
-					console.log(ct,j);
+					cst = j * 24; // current start tick
+					dr = rnd(24*(1+cp.steps[modj].drift)) - 24;
+					cst += dr;
+					cet = cst + (cs.dur*24);
+					cet = (cet >= this.max) ? this.max - 1: cet; // secure the last dur
+					cv = rnd(map(cs.vel,0,15,0,127));
+					arr.push([cst,cet,cv,this.pmap[i]]);
 				}
 			}
-		}		
+			arrl=arr.length;
+			for (k = 0; k < arrl; k++){
+				if(k){
+					if(arr[k][0] <= arr[k-1][1]){
+						arr[k-1][1] = arr[k][0]-1;
+					}
+					this.events[arr[k-1][0]].push({s:153,p:arr[k-1][3],v:arr[k-1][2]});
+					this.events[arr[k-1][1]].push({s:137,p:arr[k-1][3],v:arr[k-1][2]});
+					if(k == arrl-1){
+						this.events[arr[k][0]].push({s:153,p:arr[k-1][3],v:arr[k-1][2]});
+						this.events[arr[k][1]].push({s:137,p:arr[k-1][3],v:arr[k-1][2]});
+					}
+				}
+			}
+		}
+		// fixing velocities
 	},	
 	/**
 	* Test a raw array of phrases
