@@ -15,11 +15,11 @@ var Fs = require('fs');
 // tty exit process nice
 var tty = require("tty");
 
-var swng = 0.3;
-var a = Gen.phGenerateUniform(64,0.3);
-var b = Gen.phGenerateUniform(64,0.2);
-var c = Gen.phGenerateUniform(64,0.2);
-var d = Gen.phGenerateUniform(64,0.4);
+var swng = 0.4;
+var a = Gen.phGenerateUniform(8,0.6);
+var b = Gen.phGenerateUniform(64,0.1);
+var c = Gen.phGenerateUniform(32,0.2);
+var d = Gen.phGenerateUniform(8,0.2);
 a.swing(swng);
 b.swing(swng);
 c.swing(swng);

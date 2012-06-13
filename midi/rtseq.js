@@ -8,7 +8,7 @@ function RtSeq() {
 	this.ivid = null;
 	this.max = 3072; // max ticks at 96 ppqn for 128 squav
 	this.ticks = 0;
-	this.bpm = 118;
+	this.bpm = 141;
 	this.pmap = [36, 38, 40, 42, 46, 47, 48, 50] // for testing pitchs
 	this.dly = (60000/this.bpm)/96;
 	this.rtmidi = null;
