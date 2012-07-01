@@ -328,8 +328,41 @@ Phrase.prototype = {
     }
     return this;
   },
-  // evaluate phrase density
-  getDensity: function(){
+  getRecurrenceVel: function(){
+    var i = 0, l = this.steps.length, j = 0, ll = 0, score = 0, active = [0], dev = [], diff = 0;
+
+    for(i; i < l; i++){
+      if(this.steps[i].vel > 4){
+          active.push(i);
+      }
+    }
+    active.push(l);
+    ll = active.length;
+    for(j; j < ll; j++)
+    {
+      if(j){
+        diff = (active[j] - active[j-1])/l;
+        if(diff){
+          dev.push(diff);
+        }
+      }
+    }
+    
+    return dev;
+  },
+  // evaluate phrase repartition
+  getRepartitionVel: function(){
+    var i = 0, l = this.steps.length, map = Util.map, floor = Math.floor, tt = 0, active = [], split;
+    for(i; i < l; i++){
+        if (this.steps[i].vel > 4){
+            active.push(i); // record active pos;
+        }
+    }
+   split = floor(active.length/2);
+   return active[split] / l; 
+  },
+  // evaluate phrase loudness density
+  getDensityVel: function(){
     var i = 0, l = this.steps.length, map = Util.map, curr = 0, tt = 0;
     for(i; i < l; i++){
       curr = map(this.steps[i].vel, 0, 15, 0, 1);

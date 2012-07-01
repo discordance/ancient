@@ -25,12 +25,25 @@ b.swing(swng);
 c.swing(swng);
 d.swing(swng);
 
+a = new Phrase(16);
+a.setStrVel("000000ffff000000");
+a.setStrVel("fffff00000000000");
+a.setStrVel("f000f000f000f000");
+a.setStrVel("f0f0ff00f00ff0f0");
+a.setStrVel("f000f000f000f0f0");
+
+
+console.log(a.dumpVel());
+console.log("recurrence: "+a.getRecurrenceVel())
+console.log("repartition: "+a.getRepartitionVel());
+console.log("density: "+a.getDensityVel());
+
 //console.log(a.dumpDrift());
 //a.addDelayVel(6,0.3);
 
 var seq = new RtSeq();
 seq.phParse2([a,b,c,d]);
-seq.start();
+//seq.start();
 
 
 // out process
